@@ -91,3 +91,43 @@ echo "Used Memory = ${used_memory}M - ${perc_used_mem}%"
 echo "Free Memory = ${free_memory}M - ${perc_free_mem}%"
 
 echo -e "\n========================\n"
+
+
+# Ki means Kibibytes (2^10 bytes)
+# Mi means Mebibytes (2^20 bytes)
+# Gi means Gibibytes (2^30 bytes)
+# Bi means Bytes (1 byte)
+
+
+
+# Total Disk Size
+totalDiskSize=0
+disk_size_list=()
+
+# Function to display in MB Disk Usage
+convertDiskUnit () {
+    if [[ $1 == *"Gi"* ]]; then
+        clean_data=$(echo "$1" | sed 's/Gi//')
+        # mb_size=$(( $clean_data * 1024  ))
+        echo $clean_data
+    fi
+
+}
+
+
+# Disk Usage Section
+echo -e "Disk STATS\n"
+
+# Display df -h cmd
+df -h
+
+# Disk Usage - Excluding First Line and map auto_home
+# Creating list
+disk_size_list+=($(df -h | grep -v "Filesystem" | grep -v "map auto_home" | awk '{print $3}'))
+map_autohome=($(df -h | grep "map auto_home" | awk '{print $4}'))
+disk_size_list+=($map_autohome)
+
+
+for item in "${disk_size_list[@]}"; do
+    convertDiskUnit "$item"
+done
