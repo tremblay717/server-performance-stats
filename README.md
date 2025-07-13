@@ -13,7 +13,7 @@ git clone https://github.com/tremblay717/server-performance-stats.git
 # Dependencies
 You will need to install the bc package to make the script work. It is necessary to perform mathematical calculations.
 
-Ref: [GNU bc](https://github.com/tremblay717/server-performance-stats.git)
+Ref: [GNU bc](https://www.gnu.org/software/bc/)
 
 ```
 sudo apt update
